@@ -31,7 +31,5 @@ public class FirebaseInitializer {
         }
     }
 
-    public Firestore getFirebase() {
-        return FirestoreClient.getFirestore();
-    }
+
 }

@@ -18,18 +18,17 @@ import java.util.concurrent.ExecutionException;
 //@CrossOrigin("http://localhost:8080/")
 public class BusController {
 
-    final
-    FirebaseInitializer db;
 
-    public BusController(FirebaseInitializer db, ResponseMsg responseMsg) {
-        this.db = db;
+
+    public BusController( ResponseMsg responseMsg) {
         this.responseMsg = responseMsg;
     }
 
     @GetMapping("/getAllBuses")
     public List<Bus> getAllBuses() throws InterruptedException, ExecutionException {
+        Firestore db = FirestoreClient.getFirestore();
         List<Bus> busList = new ArrayList<Bus>();
-        CollectionReference buses = db.getFirebase().collection("buses");
+        CollectionReference buses = db.collection("buses");
         ApiFuture<QuerySnapshot> querySnapshot = buses.get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
             Bus bus = doc.toObject(Bus.class);
@@ -45,6 +44,7 @@ public class BusController {
 
     @PostMapping("/saveBus")
     public Object saveBus(@RequestBody Bus bus) throws ExecutionException, InterruptedException {
+        Firestore db = FirestoreClient.getFirestore();
         Firestore fire = FirestoreClient.getFirestore();
         DocumentReference documentReference = fire.collection("buses").document();
         bus.setBus_id(documentReference.getId()); //set document reference id to bus_id
@@ -59,7 +59,7 @@ public class BusController {
             responseMsg.setCreated_time(LocalDateTime.now());
             return responseMsg;
         } else {
-            CollectionReference employeeCR = db.getFirebase().collection("buses");
+            CollectionReference employeeCR = db.collection("buses");
             employeeCR.document(String.valueOf(bus.getBus_no())).set(bus);// set document name with bus no
 
             responseMsg.setMsg("Record Saved.");
@@ -89,8 +89,9 @@ public class BusController {
 
     @GetMapping("/searchBus")
     public List<Bus> searchBus(@RequestParam String bus_no) throws InterruptedException, ExecutionException {
+        Firestore db = FirestoreClient.getFirestore();
         List<Bus> searchbusList = new ArrayList<Bus>();
-        CollectionReference buses = db.getFirebase().collection("buses");
+        CollectionReference buses = db.collection("buses");
         ApiFuture<QuerySnapshot> querySnapshot = buses.whereEqualTo("bus_no", bus_no).get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
             Bus bus = doc.toObject(Bus.class);
@@ -105,8 +106,9 @@ public class BusController {
     //this endpoint for mobile application
     @GetMapping("/filterBus")
     public List<Bus> filterBus(@RequestParam String user_destination) throws InterruptedException, ExecutionException {
+        Firestore db = FirestoreClient.getFirestore();
         List<Bus> busList = new ArrayList<Bus>();
-        CollectionReference buses = db.getFirebase().collection("buses");
+        CollectionReference buses = db.collection("buses");
         ApiFuture<QuerySnapshot> querySnapshot = buses.get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
             String data = doc.getString("location_set");

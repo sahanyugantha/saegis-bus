@@ -21,18 +21,16 @@ import java.util.concurrent.ExecutionException;
 //@CrossOrigin("http://localhost:8080/")
 public class UserComplainController {
 
-    final
-    FirebaseInitializer db;
 
-    public UserComplainController(FirebaseInitializer db, ResponseMsg responseMsg) {
-        this.db = db;
+    public UserComplainController(ResponseMsg responseMsg) {
         this.responseMsg = responseMsg;
     }
 
     @GetMapping("/getUserComplains")
     public List<UserComplain> getAllBuses() throws InterruptedException, ExecutionException {
+        Firestore db = FirestoreClient.getFirestore();
         List<UserComplain> complainsList = new ArrayList<UserComplain>();
-        CollectionReference complains = db.getFirebase().collection("user_complains");
+        CollectionReference complains = db.collection("user_complains");
         ApiFuture<QuerySnapshot> querySnapshot = complains.get();
         for (DocumentSnapshot doc : querySnapshot.get().getDocuments()) {
             UserComplain complain = doc.toObject(UserComplain.class);
@@ -47,11 +45,11 @@ public class UserComplainController {
     @PostMapping("/saveComplain")
     public Object saveComplain(@RequestBody UserComplain userComplain) throws ExecutionException, InterruptedException {
 
-        Firestore fire = FirestoreClient.getFirestore();
-        DocumentReference documentReference = fire.collection("user_complains").document();
+        Firestore db = FirestoreClient.getFirestore();
+        DocumentReference documentReference = db.collection("user_complains").document();
         userComplain.setComplain_id(documentReference.getId()); //set document reference id to bus_id
         userComplain.setCreated_at(LocalDateTime.now().toString());
-        CollectionReference complain_collection = db.getFirebase().collection("user_complains");
+        CollectionReference complain_collection = db.collection("user_complains");
         try{
             complain_collection.document(String.valueOf(userComplain.getBus_no())).set(userComplain).isDone();// set document name with bus no
             responseMsg.setMsg("Record Saved.");
