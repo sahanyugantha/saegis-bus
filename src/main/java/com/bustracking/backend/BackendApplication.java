@@ -9,10 +9,15 @@ import java.io.IOException;
 @SpringBootApplication
 public class BackendApplication {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
+
 		FirebaseInitializer fb = new FirebaseInitializer();
-		fb.initDB();
+		try {
+			fb.initDB();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
