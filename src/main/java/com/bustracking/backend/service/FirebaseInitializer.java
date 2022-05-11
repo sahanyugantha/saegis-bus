@@ -16,7 +16,7 @@ import java.io.InputStream;
 @Service
 public class FirebaseInitializer {
     @PostConstruct
-    private void initDB() throws IOException {
+    public void initDB() throws IOException {
 
         InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("./serviceAccountKey.json");
 

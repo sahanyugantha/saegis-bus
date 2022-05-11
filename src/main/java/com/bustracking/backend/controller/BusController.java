@@ -22,6 +22,7 @@ public class BusController {
 
     public BusController( ResponseMsg responseMsg) {
         this.responseMsg = responseMsg;
+       // FirebaseInitializer fb = new FirebaseInitializer();
     }
 
     @GetMapping("/getAllBuses")
