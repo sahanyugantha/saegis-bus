@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -22,6 +24,13 @@ public class BusController {
 
     public BusController( ResponseMsg responseMsg) throws IOException {
         this.responseMsg = responseMsg;
+    }
+
+    @GetMapping("test")
+    public Map<String,String> test(){
+        Map<String,String> message = new HashMap<>();
+        message.put("MSG", "Greeting!");
+        return message;
     }
 
     @GetMapping("/getAllBuses")
