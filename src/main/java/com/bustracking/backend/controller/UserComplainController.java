@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@CrossOrigin("http://localhost:8080/")
+//@CrossOrigin("http://localhost:8080/")
 public class UserComplainController {
 
     @Autowired
