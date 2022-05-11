@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 public class UserComplainController {
 
 
-    public UserComplainController(ResponseMsg responseMsg) {
+    public UserComplainController(ResponseMsg responseMsg) throws IOException {
         this.responseMsg = responseMsg;
     }
 

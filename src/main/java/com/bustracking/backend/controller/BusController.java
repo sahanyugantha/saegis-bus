@@ -9,6 +9,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +20,8 @@ import java.util.concurrent.ExecutionException;
 public class BusController {
 
 
-
-    public BusController( ResponseMsg responseMsg) {
+    public BusController( ResponseMsg responseMsg) throws IOException {
         this.responseMsg = responseMsg;
-       // FirebaseInitializer fb = new FirebaseInitializer();
     }
 
     @GetMapping("/getAllBuses")
