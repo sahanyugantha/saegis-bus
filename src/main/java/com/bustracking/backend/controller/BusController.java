@@ -18,8 +18,13 @@ import java.util.concurrent.ExecutionException;
 //@CrossOrigin("http://localhost:8080/")
 public class BusController {
 
-    @Autowired
+    final
     FirebaseInitializer db;
+
+    public BusController(FirebaseInitializer db, ResponseMsg responseMsg) {
+        this.db = db;
+        this.responseMsg = responseMsg;
+    }
 
     @GetMapping("/getAllBuses")
     public List<Bus> getAllBuses() throws InterruptedException, ExecutionException {
@@ -35,7 +40,7 @@ public class BusController {
 
     }
 
-    @Autowired
+    final
     ResponseMsg responseMsg;
 
     @PostMapping("/saveBus")
