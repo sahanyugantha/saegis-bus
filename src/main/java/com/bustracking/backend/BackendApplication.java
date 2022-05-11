@@ -3,6 +3,7 @@ package com.bustracking.backend;
 import com.bustracking.backend.service.FirebaseInitializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.io.IOException;
 
@@ -11,6 +12,8 @@ public class BackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
+		FirebaseInitializer fb = new FirebaseInitializer();
+		fb.initDB();
 
 //		FirebaseInitializer fb = new FirebaseInitializer();
 //		try {
