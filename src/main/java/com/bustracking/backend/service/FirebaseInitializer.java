@@ -24,10 +24,6 @@ public class FirebaseInitializer {
                 .setDatabaseUrl("https://bus-tracker-9e387-default-rtdb.firebaseio.com").build();
 
         FirebaseApp.initializeApp(options);
-
-        if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options);
-        }
     }
 
 
