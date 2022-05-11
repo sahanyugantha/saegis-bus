@@ -13,15 +13,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+@Service
 public class FirebaseInitializer {
+    @PostConstruct
     public void initDB() throws IOException {
 
         InputStream serviceAccount = this.getClass().getClassLoader().getResourceAsStream("./serviceAccountKey.json");
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://bus-tracker-9e387-default-rtdb.firebaseio.com").build();
+                .setDatabaseUrl("https://bus-tracker-9e387-default-rtdb.firebaseio.com")
+                .build();
 
         FirebaseApp.initializeApp(options);
     }

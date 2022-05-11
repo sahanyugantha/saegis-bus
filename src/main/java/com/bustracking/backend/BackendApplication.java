@@ -12,12 +12,12 @@ public class BackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 
-		FirebaseInitializer fb = new FirebaseInitializer();
-		try {
-			fb.initDB();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		FirebaseInitializer fb = new FirebaseInitializer();
+//		try {
+//			fb.initDB();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }
